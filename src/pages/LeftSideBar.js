@@ -26,7 +26,7 @@ const LeftSideBar = () => {
         headers: {
           Authorization: `Bearer ${token}`, // Pass token in headers for authorization
         },
-        withCredentials: false,
+        withCredentials: true,
       });
       dispatch(logoutSuccess());
       navigate('/login');
