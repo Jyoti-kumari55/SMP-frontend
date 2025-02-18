@@ -22,9 +22,9 @@ const LeftSideBar = () => {
 
   const logoutUser = async () => {
     try {
-      await axios.get( `https://smp-frontend-beta.vercel.app/api/auth/logout`, {
+      await axios.get( `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/auth/logout`, {
         headers: {
-          Authorization: `Bearer ${token}`, // Pass token in headers for authorization
+          Authorization: `Bearer ${token}`, 
         },
         withCredentials: true,
       });
