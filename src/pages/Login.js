@@ -30,7 +30,9 @@ const Login = () => {
     try {
       console.log(process.env.REACT_APP_SOCIAL_BACKEND_API)
       const response = await axios.post(
-        `https://smp-frontend-beta.vercel.app/api/auth/login`,
+         `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/auth/login`,
+        // `http://localhost:8080/api/auth/login`,
+
         {
           email,
           password,
