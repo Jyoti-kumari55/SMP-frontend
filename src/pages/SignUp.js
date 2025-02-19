@@ -45,7 +45,7 @@ const SignUp = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          timeout: 10000,
+          // timeout: 10000,
           // withCredentials: true,
         }
       );
@@ -59,9 +59,10 @@ const SignUp = () => {
       //   setError("");
       // }
 
-      setTimeout(() => {
-        navigate("/login");
-      }, 1200);
+      navigate("/login");
+      // setTimeout(() => {
+      //   navigate("/login");
+      // }, 1200);
     } catch (error) {
       console.error("Error during registration: ", error);
       setLoading(false);
