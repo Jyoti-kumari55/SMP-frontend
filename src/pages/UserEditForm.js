@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
 import { updateUserHandler } from "../actions/userActions";
 import axios from "axios";
 
 const UserEditForm = ({ userDetail }) => {
 
   const dispatch = useDispatch();
-  const location = useLocation();
   const { user, token } = useSelector((state) => state.auth);
   const [coverImg, setCoverImg] = useState(userDetail.coverPicture || "");
   const [profileImg, setProfileImg] = useState(userDetail.profilePicture || "");
@@ -87,9 +85,6 @@ const UserEditForm = ({ userDetail }) => {
     // dispatch(updateUserProfileSuccess(updatedUser));
     updateUserHandler(userDetail?._id, updatedUser, token, dispatch);
   };
-
-  // console.log("Cover Image:", coverImg);
-  // console.log("Profile Image:", profileImg);
 
   return (
     <div>

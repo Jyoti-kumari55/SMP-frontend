@@ -1,9 +1,6 @@
-// src/actions/userActions.js
 
 import axios from "axios";
 import {
-  followUserSuccess,
-  unfollowUserSuccess,
   toggleFollowSuccess,
   updateUserProfileSuccess,
 } from "../features/userSlice";
@@ -64,55 +61,3 @@ export const updateUserHandler = async (userId, userData, token, dispatch) => {
 
 
 
-// export const followUserHandler = async (
-//   followUserId,
-//   user,
-//   token,
-//   dispatch
-// ) => {
-//   try {
-//     const response = await axios.post(
-//       `http://localhost:8080/api/users/follow/${followUserId}`,
-//       { userId: user?._id },
-//       {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//         withCredentials: true,
-//       }
-//     );
-//     console.log("Follow User", response.data);
-//     window.location.reload();
-//     dispatch(followUserSuccess(followUserId));
-//   } catch (error) {
-//     console.log(error.message);
-//     // throw new Error("Failed to follow the user.");
-//   }
-// };
-
-// export const unfollowUserHandler = async (
-//   followUserId,
-//   user,
-//   token,
-//   dispatch
-// ) => {
-//   try {
-//     console.log("==followUserId==", followUserId, user?._id);
-//     const response = await axios.post(
-//       `http://localhost:8080/api/users/unfollow/${followUserId}`,
-//       { userId: user?._id },
-//       {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//         withCredentials: true,
-//       }
-//     );
-//     console.log("UnFollow User", response.data);
-//     window.location.reload();
-//     dispatch(unfollowUserSuccess({ unfollowUserId: followUserId }));
-//   } catch (error) {
-//     console.log(error.message);
-//     throw new Error("Failed to unfollow the user.");
-//   }
-// };

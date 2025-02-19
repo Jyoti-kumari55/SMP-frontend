@@ -7,14 +7,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  // const { token, user } = useSelector((state) => state.auth);
-  // const navigate = useNavigate();
-
-  // if (!user){
-  //   navigate('/login')
-
-  // }
-
   const [loadPosts, setLoadPosts] = useState(false);
 
   const loadPostHandler = () => {

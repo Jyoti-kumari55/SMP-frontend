@@ -70,13 +70,10 @@ const LeftSideBar = () => {
         Create New Post
       </button>
 
-      {/* <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-  Popover on top
-</button> */}
+     
       <div className="d-flex gap-4 mt-5 ml-0" style={{ paddingTop: "6rem" }}>
         <img
           src={user?.profilePicture || defaultProfileImg}
-          // src={profile?.user?.profilePicture || defaultProfileImg}
           alt="user"
           className="rounded-circle"
           style={{ width: "15%", height: "15%" }}
@@ -84,8 +81,7 @@ const LeftSideBar = () => {
         <div className="row">
           <h6 className="mb-0">{user?.name}</h6>
           <p className="mt-0">@{user?.username}</p>
-          {/* <h6 className="mb-0">{profile?.user?.name}</h6>
-          <p className="mt-0">@{profile?.user?.username}</p> */}
+         
         </div>
         <div className="pe-4">
           <span
@@ -109,7 +105,6 @@ const LeftSideBar = () => {
             </button>
           )}
         </div>
-        {/* <h5 className="pe-5" >...</h5> */}
       </div>
     </div>
   );

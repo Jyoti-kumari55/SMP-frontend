@@ -55,7 +55,7 @@ function Tweets({ post }) {
 
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Pass token in headers for authorization
+            Authorization: `Bearer ${token}`, 
           },
           withCredentials: true,
         }
@@ -156,10 +156,6 @@ function Tweets({ post }) {
       dispatch(bookmarkPostSuccess(post));
       navigate(0);
 
-      // if(response.message === "User removed bookmarked post.") {
-      //   window.location.reload();
-      // }
-
       setError("");
     } catch (error) {
       console.error(error);
@@ -171,7 +167,6 @@ function Tweets({ post }) {
 
   const commentPostHandler = async () => {
     try {
-      //console.log("id", post?._id, commentText, user?._id);
       const response = await axios.post(
         //`http://localhost:8080/api/comments/create/${post?._id}`,
         `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/posts/create`,
@@ -220,7 +215,6 @@ function Tweets({ post }) {
           className="p-3 mt-3"
           style={{ width: "100%", backgroundColor: "white" }}
         >
-          {/* to={`/myProfile/${post?.userId?._id}`}  */}
           <div className="d-flex justify-content-between align-items-center">
             <Link
               to={`/profile/${post?.userId?._id}`}
@@ -296,7 +290,6 @@ function Tweets({ post }) {
 
               </Link>
             )}
-            {/* <img src={post?.img ? post.img : " "} alt="" className="tweetImg" /> */}
           </div>
 
           <div

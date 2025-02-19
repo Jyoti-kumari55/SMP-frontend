@@ -40,27 +40,9 @@ const SuggestedUsers = () => {
     setUsercount((prev) => prev + 5);
   };
 
-  // const showMoreUserHandler = () => {
-  //   setUsercount((prev) => {
-  //     const newCount = prev + 5;
-  //     console.log("New count:", newCount);  // Check if the count is incrementing
-  //     return newCount;
-  //   });
-  // };
-
   const getSuggestedUsers = [...(Array.isArray(suggestedUsers.Users) ? suggestedUsers.Users : [])];
 
   const filteredUsers = getSuggestedUsers.filter((user) => `${user.username}`.toLowerCase().includes(search.toLowerCase()));
-
-  // const filteredSuggestedUsers = filteredUsers.filter((people) => {
-  //   if (!user?.followings.includes(people?._id) && people?._id !== user?._id) {
-  //     const isFollower = user?.followers.includes(people?._id);
-  //     const isNewUser = people?.followers.length === 0; // New user with no followers
-
-  //     return (isFollower && !user?.followings.includes(people?._id)) || isNewUser;
-  //   }
-  //   return false;
-  // });
 
   const filteredSuggestedUsers = filteredUsers.filter((people) => {
     if (people?._id !== user?._id) {            
@@ -72,7 +54,6 @@ const SuggestedUsers = () => {
     }
     return false;
   });
-  // console.log("Filtered suggested users count:", filteredSuggestedUsers.length);
 
   return (
     <div>

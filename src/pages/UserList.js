@@ -9,7 +9,6 @@ import { fetchUserProfileSuccess } from "../features/userSlice";
 const UserList = () => {
   const { profile, isLoading, error } = useSelector((state) => state.user);
   const { token, user } = useSelector((state) => state.auth);
-  // console.log("uuuu", user, "pppp", profile);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -63,18 +62,7 @@ const UserList = () => {
                 Following
               </NavLink>
             </div>
-            {/* <FollowersUserList/> */}
-            {/* <div>
-              {location.pathname.includes("followers") && (
-                <FollowersUserList />
-              )}
-              {location.pathname.includes("followings") && (
-                <FollowingsUserList />
-              )}
-            </div> */}
-
             <Outlet />
-
           </div>
           <div className="col-md-3">
             <RightSideBar />

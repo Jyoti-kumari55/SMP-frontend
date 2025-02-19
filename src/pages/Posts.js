@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Tweets from "./Tweets";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { fetchPostsStart, fetchPostsSuccess } from "../features/postSlice";
 import CreatePost from "./CreatePost";
 
@@ -14,31 +13,6 @@ const Posts = () => {
   const [showSortType, setShowSortType] = useState(false);
   const [view, setView] = useState("forYou");
   const following = user?.followings || [];
-
-  // const posts = useSelector((state) => state.post.posts);
-
-  // useEffect(() => {
-  //   const fetchPosts = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         "http://localhost:8080/api/posts/allPosts",
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //           withCredentials: true,
-  //         }
-  //       );
-  //       //setPost(response.data);
-  //       dispatch(fetchPostsSuccess(response.data));
-  //      // console.log("All Posts: ", response.data);
-
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   fetchPosts();
-  // }, [token, isloading, dispatch]);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -69,20 +43,6 @@ const Posts = () => {
   const clickTabHandler = (tab) => {
     setView(tab);
   };
-
-  // Sorting of Date and trending done in descending order( recent to oldest)
-
-  // const filterPosts = (posts) => {
-  //   if (filterPostType === "Date") {
-  //     return [...posts].sort(
-  //       (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-  //     );
-  //   } else if (filterPostType === "Trending") {
-  //     return [...posts].sort((a, b) => b.likes.length - a.likes.length);
-
-  //   }
-  //   return posts;
-  // };
 
   const filterPosts = (posts) => {
     if (view === "forYou") {
@@ -172,41 +132,5 @@ const Posts = () => {
     </div>
   );
 };
-
-//  <div className="d-flex mt-4">
-//     <h2 className="fw-bold">Latest Posts</h2>
-//     <span
-//       className="btn pt-0 ms-auto fw-normal"
-//       onClick={() => setShowSortType(!showSortType)}
-//     >
-//       Sort by
-//       <h4>
-//         {" "}
-//         <i class="bi bi-sliders2"></i>
-//       </h4>
-//     </span>
-//     {showSortType && filteredPosts && filteredPosts.length > 0 && (
-//       <div className="row" >
-//         <p
-//           className="btn mb-0 pb-0 fs-5 fw-medium"
-//           onClick={() => setFilterPostType("Date")}
-//         >
-//           Date
-//         </p>
-//         <p
-//           className="btn pt-0 fs-5 fw-medium"
-//           onClick={() => setFilterPostType("Trending")}
-//         >
-//           Trending
-//         </p>
-//       </div>
-//     )}
-//   </div>
-//   {filteredPosts && filteredPosts.length > 0 ? (
-//     filteredPosts.map((tweet) => <Tweets key={tweet._id} post={tweet} />)
-//   ) : (
-//     <p>There is no post. </p>
-//   )}
-// </div>
 
 export default Posts;
