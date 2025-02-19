@@ -52,17 +52,11 @@ const SignUp = () => {
       console.log(response)
       setSuccess(response.data.message);
       setError("");
-
-      // if (response.data.success) {
-      //   setSuccess(response.data.message);
-        
-      //   setError("");
-      // }
-
-      navigate("/login");
-      // setTimeout(() => {
-      //   navigate("/login");
-      // }, 1200);
+      
+     // navigate("/login");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1200);
     } catch (error) {
       console.error("Error during registration: ", error);
       setLoading(false);
