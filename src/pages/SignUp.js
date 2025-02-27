@@ -45,15 +45,12 @@ const SignUp = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          // timeout: 10000,
-          // withCredentials: true,
         }
       );
       console.log(response)
       setSuccess(response.data.message);
       setError("");
       
-     // navigate("/login");
       setTimeout(() => {
         navigate("/login");
       }, 1200);

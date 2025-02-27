@@ -55,8 +55,6 @@ const MyProfile = () => {
         );
         dispatch(fetchUserProfileSuccess(response.data));
         console.log("Profile: ", response.data);
-        // setProfile(response.data.user);
-        // setLoading(false);
       } catch (error) {
         console.error(error);
         dispatch(
@@ -64,12 +62,6 @@ const MyProfile = () => {
             error.response?.data?.error || "Failed to fetch profile"
           )
         );
-        // setError("Unable to fetch profile.");
-        // setLoading(false);
-        // if (error.response && error.response.status === 400) {
-
-        //   navigate('/login');
-        // }
       }
     };
     fetchProfile();
@@ -87,7 +79,6 @@ const MyProfile = () => {
 
   const isFollowedByUser =
   currentUserId && profile?.user?.followers.includes(currentUserId);
-  // console.log("fofofo: ", isFollowing, "lolo: ",isFollowedByUser);
   const filterPosts = (posts) => {
     return posts?.filter((post) => !post.postId);
   };
@@ -95,27 +86,6 @@ const MyProfile = () => {
   const sumbitFormHandler = () => {
     setIsModalOpen((prev) => !prev);
   };
-
-  // Handle follow/unfollow
-  // const handleFollowClick = async () => {
-  //   try {
-  //     await toggleFollowHandler(profile?.user?._id, user, token, dispatch);
-  //     dispatch(fetchUserProfileStart());
-
-  //     const response = await axios.get(
-  //       `http://localhost:8080/api/users/profile/${profile?.user?._id}`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //         withCredentials: true,
-  //       }
-  //     );
-  //     dispatch(fetchUserProfileSuccess(response.data));
-  //   } catch (error) {     
-  //     console.error("Error toggling follow:", error);
-  //   }
-  // };
 
   const handleFollowClick = async () => {
     try {

@@ -18,7 +18,7 @@ function Tweets({ post }) {
   const { token, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
- // console.log("posts: ", post);
+  // console.log("posts: ", post);
 
   const [likesCount, setLikesCount] = useState(post?.likes?.length || 0);
   const [isLiked, setIsLiked] = useState(
@@ -43,7 +43,7 @@ function Tweets({ post }) {
       return;
     }
   }, [token, navigate]);
-  
+
   const popUpHandler = () => {
     setShowPopUp(!showPopUp);
   };
@@ -51,11 +51,11 @@ function Tweets({ post }) {
   const deletePostHandler = async () => {
     try {
       const response = await axios.delete(
-         `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/posts/${post?._id}`,
+        `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/posts/${post?._id}`,
 
         {
           headers: {
-            Authorization: `Bearer ${token}`, 
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         }
@@ -78,7 +78,7 @@ function Tweets({ post }) {
 
     try {
       const response = await axios.put(
-         `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/posts/edit/${post?._id}`,
+        `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/posts/edit/${post?._id}`,
 
         {
           desc: editedContent,
@@ -108,7 +108,7 @@ function Tweets({ post }) {
       setLikeBtnClr(!isLiked ? "red" : "black");
       setIsLiked((prev) => !prev);
       const response = await axios.post(
-         `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/posts/like/${post?._id}`,
+        `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/posts/like/${post?._id}`,
 
         {
           userId: user?._id,
@@ -126,7 +126,6 @@ function Tweets({ post }) {
       dispatch(likePostSuccess(post));
       navigate(0);
 
-      //setAlert(`${post?.userId?.name} liked the post.`);
     } catch (error) {
       console.log(error);
     }
@@ -134,10 +133,8 @@ function Tweets({ post }) {
 
   const bookmarkedPostHandler = async () => {
     try {
-      // setIsBookmark((prev) => !prev);
-      // setBookmarkedCounts((prev) => (isBookmark ? prev - 1 : prev + 1))
       const response = await axios.put(
-         `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/users/bookmark/${post?._id}`,
+        `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/users/bookmark/${post?._id}`,
         {
           userId: user?._id,
         },
@@ -152,7 +149,6 @@ function Tweets({ post }) {
 
       console.log("yuyuyu: ", response);
       setIsBookmark((prev) => !prev);
-      // setBookmarkedCounts((prev) => (isBookmark ? prev - 1 : prev + 1))
       dispatch(bookmarkPostSuccess(post));
       navigate(0);
 
@@ -198,14 +194,12 @@ function Tweets({ post }) {
 
   const isDescNotEmpty = commentText.trim() !== "";
   const buttonClass = isDescNotEmpty
-    ? "btn ms-4 px-4 rounded-2 mt-4 createPostBtn text-white bg-primary" 
+    ? "btn ms-4 px-4 rounded-2 mt-4 createPostBtn text-white bg-primary"
     : "btn ms-4 px-4 rounded-2 mt-4 createPostBtn text-muted btn btn-secondary";
 
   const formattedDate = post?.createdAt
     ? formatDistanceToNow(new Date(post?.createdAt), { addSuffix: true })
     : "";
-
-  
 
   return (
     <>
@@ -263,7 +257,6 @@ function Tweets({ post }) {
             </div>
           </div>
           <div style={{ marginLeft: "40px" }}>
-            
             {isEdit ? (
               <div>
                 <textarea
@@ -274,7 +267,6 @@ function Tweets({ post }) {
                 />
                 <button
                   className="btn btn-primary my-3 ms-1"
-            
                   onClick={editPostHandler}
                 >
                   Save
@@ -286,8 +278,11 @@ function Tweets({ post }) {
                 to={`/postDetails/${post?._id}`}
               >
                 <span>{post?.desc}</span>
-            <img src={post?.img ? post.img : " "} alt="" className="tweetImg" />
-
+                <img
+                  src={post?.img ? post.img : " "}
+                  alt=""
+                  className="tweetImg"
+                />
               </Link>
             )}
           </div>
@@ -297,10 +292,7 @@ function Tweets({ post }) {
             style={{ marginLeft: "40px" }}
           >
             <div className="d-flex gap-2">
-              <div
-                onClick={likePostClickHandler}
-                style={{ color: likeBtnClr }}
-              >
+              <div onClick={likePostClickHandler} style={{ color: likeBtnClr }}>
                 <i className="bi bi-heart heart"></i>
               </div>
               <span>{likesCount}</span>
@@ -319,9 +311,7 @@ function Tweets({ post }) {
             </div>
 
             <div className="d-flex gap-2">
-              <div
-                onClick={bookmarkedPostHandler}
-              >
+              <div onClick={bookmarkedPostHandler}>
                 {isBookmark ? (
                   <span style={{ cursor: "pointer" }}>
                     <i className="bi bi-bookmark-fill bookmark"></i>
@@ -342,7 +332,7 @@ function Tweets({ post }) {
                   className="text-decoration-none"
                 >
                   <img
-                    src={user?.profilePicture || " "}
+                    src={user?.profilePicture || defaultProfileImg}
                     alt=""
                     className="tweetProfileImg img-fluid"
                   />

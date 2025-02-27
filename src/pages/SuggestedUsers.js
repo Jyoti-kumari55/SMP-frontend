@@ -103,7 +103,7 @@ const SuggestedUsers = () => {
           </Link>
 
           <button
-            onClick={() => toggleFollowHandler(people?._id, user, token, dispatch)} // Use toggleFollowHandler
+            onClick={() => toggleFollowHandler(people?._id, user, token, dispatch)} 
             className="btn btn-outline-danger"
           >
             {user?.followings.includes(people?._id)

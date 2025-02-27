@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserListSuccess } from "../features/userSlice";
 import { Link, useParams } from "react-router-dom";
-import { toggleFollowHandler } from "../actions/userActions";  // Updated import for toggleFollowHandler
+import { toggleFollowHandler } from "../actions/userActions"; 
 
 const FollowersUserList = () => {
   const defaultProfileImg =

@@ -23,6 +23,7 @@ const Explore = () => {
     "basketball",
     "game",
     "cricket",
+    "players"
   ];
   return (
     <>
@@ -100,6 +101,7 @@ const Explore = () => {
             <div>
               {view === "forYou" &&
                 posts?.map((tweet) => <Tweets key={tweet?._id} post={tweet} />)}
+
               {view === "trending" &&
                 posts?.map((tweet) => (
                   <div>
@@ -120,14 +122,18 @@ const Explore = () => {
               {view === "entertainment" &&
                 posts
                   ?.filter((post) =>
-                    post?.desc?.toLowerCase().includes("entertainment")
+                    entertainmentKeywords.some((keyword) =>
+                      post?.desc?.toLowerCase().includes("entertainment")
+                    )
                   )
                   .map((tweet) => <Tweets key={tweet?._id} post={tweet} />)}
 
               {view === "sports" &&
                 posts
                   ?.filter((post) =>
-                    post?.desc?.toLowerCase().includes("sports")
+                    sportsKeywords.some((keyword) =>
+                      post?.desc?.toLowerCase().includes(keyword)
+                    )
                   )
                   .map((tweet) => <Tweets key={tweet?._id} post={tweet} />)}
             </div>

@@ -17,8 +17,6 @@ const Posts = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        console.log("55: ", );
-
         const apiUrl =
           view === "forYou"
             ?  `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/posts/allPosts`
@@ -31,7 +29,6 @@ const Posts = () => {
           },
           withCredentials: true,
         });
-        console.log("5555: ", response.data);
         dispatch(fetchPostsSuccess(response.data));
       } catch (error) {
         console.error(error);

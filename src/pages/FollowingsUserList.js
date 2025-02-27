@@ -34,7 +34,13 @@ const FollowingsUserList = () => {
           }
         );
         console.log("UserList", response.data);
+        // const validFollowings = response.data.followings.filter((person) => person !== null || person._id !== undefined);
+        // const validFollowers = response.data.followers.filter((person) => person !== null || person._id !== undefined);
+
+
         dispatch(fetchUserListSuccess(response.data));
+        // dispatch(fetchUserListSuccess({...response.data, followers: validFollowers, followings: validFollowings}));
+
       } catch (error) {
         console.error(error);
       }

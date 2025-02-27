@@ -3,8 +3,7 @@ import LeftSideBar from "./LeftSideBar";
 import MiddleContent from "./MiddleContent";
 import RightSideBar from "./RightSideBar";
 import Header from "../components/Header";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+
 
 const Home = () => {
   const [loadPosts, setLoadPosts] = useState(false);

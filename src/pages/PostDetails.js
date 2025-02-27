@@ -13,7 +13,6 @@ const PostDetails = () => {
   const { postId } = useParams();
   const [postDetail, setPostDetail] = useState(null);
 
-  //console.log("Post detail", postDetail);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,7 +27,6 @@ const PostDetails = () => {
             withCredentials: true,
           }
         );
-        // console.log(response.data);
         dispatch(fetchPostByIdSuccess(response.data));
         setPostDetail(response.data);
       } catch (error) {

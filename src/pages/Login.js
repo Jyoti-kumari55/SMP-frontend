@@ -123,15 +123,6 @@ const Login = () => {
                style={{cursor: "pointer"}}>
               Forgot your password?
             </p>
-            {/* <div className="d-flex justify-content-end">
-              <button
-                type="button"
-                className=" bg-white rounded-2 mt-2  px-3 border border-secondary-subtle"
-                onClick={sumbitFormHandler}
-              >
-                Forgot your password?
-              </button>
-            </div> */}
           </div>
           <button type="submit" className="loginBtn" disabled={loading}>
             {loading ? "Logging in..." : "Login"}
