@@ -47,7 +47,7 @@ const SignUp = () => {
           },
         }
       );
-      console.log(response)
+      // console.log(response)
       setSuccess(response.data.message);
       setError("");
       

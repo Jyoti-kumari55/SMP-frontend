@@ -33,7 +33,7 @@ const FollowersUserList = () => {
             withCredentials: true,
           }
         );
-        console.log("UserList", response.data);
+        // console.log("UserList", response.data);
         dispatch(fetchUserListSuccess(response.data));
       } catch (error) {
         console.error(error);

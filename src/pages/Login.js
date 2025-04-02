@@ -28,7 +28,6 @@ const Login = () => {
     setError("");
     setLoading(true);
     try {
-      console.log(process.env.REACT_APP_SOCIAL_BACKEND_API)
       const response = await axios.post(
          `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/auth/login`,
         // `http://localhost:8080/api/auth/login`,
@@ -57,7 +56,7 @@ const Login = () => {
           token: response.data.token,
         })
       );
-      console.log("details:", response.data.details);
+      // console.log("details:", response.data.details);
 
       dispatch(fetchUserProfileSuccess(response.data.details));
       setSuccess(response.data.message);

@@ -5,7 +5,6 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createCommentSuccess,
-  deletePostSuccess,
   likePostSuccess,
   updatePostSuccess,
 } from "../features/postSlice";
@@ -92,7 +91,7 @@ function Tweets({ post }) {
           withCredentials: true,
         }
       );
-      console.log(", hhh", response.data);
+      // console.log(", hhh", response.data);
       setEditedContent(editedContent);
       setIsEdit(false);
       dispatch(updatePostSuccess(response.data));
@@ -122,7 +121,7 @@ function Tweets({ post }) {
           withCredentials: true,
         }
       );
-      console.log("3334445", response.data.message);
+      // console.log("3334445", response.data.message);
       dispatch(likePostSuccess(post));
       navigate(0);
 
@@ -147,7 +146,7 @@ function Tweets({ post }) {
         }
       );
 
-      console.log("yuyuyu: ", response);
+      // console.log("yuyuyu: ", response);
       setIsBookmark((prev) => !prev);
       dispatch(bookmarkPostSuccess(post));
       navigate(0);
@@ -184,7 +183,7 @@ function Tweets({ post }) {
       setCommentText(" ");
       setCommentCount((prevCount) => prevCount + 1);
       setShowCommentInput((prev) => !prev);
-      console.log("Comment", response.data);
+      // console.log("Comment", response.data);
       navigate(0);
       dispatch(createCommentSuccess(response.date));
     } catch (error) {
@@ -305,12 +304,12 @@ function Tweets({ post }) {
               <span style={{ marginTop: "-2px" }}>{commentCount}</span>
             </div>
 
-            <div className="d-flex gap-2">
+            {/* <div className="d-flex gap-2">
               <i className="bi bi-share share"></i>
               <span>{post?.share}</span>
-            </div>
+            </div> */}
 
-            <div className="d-flex gap-2">
+            <div className="d-flex gap-2 ">
               <div onClick={bookmarkedPostHandler}>
                 {isBookmark ? (
                   <span style={{ cursor: "pointer" }}>

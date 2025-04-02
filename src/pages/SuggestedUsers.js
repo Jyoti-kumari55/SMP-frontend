@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleFollowHandler } from "../actions/userActions"; 
+import { toggleFollowHandler } from "../actions/userActions";
 import { Link } from "react-router-dom";
 import { fetchSuggestedUsersSuccess } from "../features/userSlice";
 import axios from "axios";
@@ -12,20 +12,23 @@ const SuggestedUsers = () => {
   const [usercount, setUsercount] = useState(5);
   const [search, setSearch] = useState("");
 
-  const defaultProfileImg = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png";
+  const defaultProfileImg =
+    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png";
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const suggestedRes = await axios.get( 
-          `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/users/suggestedUsers`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          withCredentials: true,
-        });
+        const suggestedRes = await axios.get(
+          `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/users/suggestedUsers`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            withCredentials: true,
+          }
+        );
         const suggestedUsersData = suggestedRes.data;
-        console.log("sssss: ", suggestedUsersData);
+        // console.log("sssss: ", suggestedUsersData);
         dispatch(fetchSuggestedUsersSuccess(suggestedUsersData));
       } catch (error) {
         console.log(error.message);
@@ -34,22 +37,24 @@ const SuggestedUsers = () => {
     fetchUsers();
   }, [dispatch, token]);
 
-
-
   const showMoreUserHandler = () => {
     setUsercount((prev) => prev + 5);
   };
 
-  const getSuggestedUsers = [...(Array.isArray(suggestedUsers.Users) ? suggestedUsers.Users : [])];
+  const getSuggestedUsers = [
+    ...(Array.isArray(suggestedUsers.Users) ? suggestedUsers.Users : []),
+  ];
 
-  const filteredUsers = getSuggestedUsers.filter((user) => `${user.username}`.toLowerCase().includes(search.toLowerCase()));
+  const filteredUsers = getSuggestedUsers.filter((user) =>
+    `${user.name}`.toLowerCase().includes(search.toLowerCase())
+  );
 
   const filteredSuggestedUsers = filteredUsers.filter((people) => {
-    if (people?._id !== user?._id) {            
+    if (people?._id !== user?._id) {
       // Check if the logged-in user is followed by the suggested user
-      const isFollowingBack = user?.followers.includes(people?._id); 
-      const isNewUser = people?.followers.length === 0; 
-      const isNotFollowing = !user?.followings.includes(people?._id); 
+      const isFollowingBack = user?.followers.includes(people?._id);
+      const isNewUser = people?.followers.length === 0;
+      const isNotFollowing = !user?.followings.includes(people?._id);
       return (isNotFollowing && !isFollowingBack) || isNewUser;
     }
     return false;
@@ -87,10 +92,15 @@ const SuggestedUsers = () => {
       </div>
       <hr />
       {filteredSuggestedUsers.slice(0, usercount).map((people) => (
-        <div key={people?._id} className="d-flex justify-content-between align-items-center mb-4">
-          <Link to={`/profile/${people?._id}`} 
-             className="d-flex align-items-center" 
-             style={{ textDecoration: "none", color: "inherit" }}>
+        <div
+          key={people?._id}
+          className="d-flex justify-content-between align-items-center mb-4"
+        >
+          <Link
+            to={`/profile/${people?._id}`}
+            className="d-flex align-items-center"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
             <img
               src={people?.profilePicture || defaultProfileImg}
               alt="user"
@@ -98,12 +108,16 @@ const SuggestedUsers = () => {
               style={{ width: "50px", height: "50px", objectFit: "cover" }}
             />
             <div className="ms-2">
-              <span style={{ fontSize: "18px", fontWeight: "500" }}>{people?.name}</span>
+              <span style={{ fontSize: "18px", fontWeight: "500" }}>
+                {people?.name}
+              </span>
             </div>
           </Link>
 
           <button
-            onClick={() => toggleFollowHandler(people?._id, user, token, dispatch)} 
+            onClick={() =>
+              toggleFollowHandler(people?._id, user, token, dispatch)
+            }
             className="btn btn-outline-danger"
           >
             {user?.followings.includes(people?._id)

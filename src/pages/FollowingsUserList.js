@@ -33,7 +33,7 @@ const FollowingsUserList = () => {
             withCredentials: true,
           }
         );
-        console.log("UserList", response.data);
+        // console.log("UserList", response.data);
         // const validFollowings = response.data.followings.filter((person) => person !== null || person._id !== undefined);
         // const validFollowers = response.data.followers.filter((person) => person !== null || person._id !== undefined);
 

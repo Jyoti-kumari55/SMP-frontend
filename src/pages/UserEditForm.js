@@ -34,7 +34,7 @@ const UserEditForm = ({ userDetail }) => {
           withCredentials: true,
         }
       );
-      console.log("----------", response.data);
+      // console.log("----------", response.data);
       return response.data.imageUrl;
     } catch (error) {
       console.error("Error uploading image: ", error);
@@ -80,7 +80,7 @@ const UserEditForm = ({ userDetail }) => {
       currentPassword,
       newPassword,
     };
-    console.log("upppp: ", updatedUser);
+    // console.log("upppp: ", updatedUser);
 
     // dispatch(updateUserProfileSuccess(updatedUser));
     updateUserHandler(userDetail?._id, updatedUser, token, dispatch);

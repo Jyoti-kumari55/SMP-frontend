@@ -88,7 +88,7 @@ const Posts = () => {
       <div className="d-flex mt-4">
         <h2 className="fw-bold">Latest Posts</h2>
         { isloading && <div> Loading posts... </div>}
-        { error && <div>Error occured while fetching the posts. </div>}
+        { error && !posts.length && <div>Error occured while fetching the posts. </div>}
         {view === "forYou" && (
           <span
             className="btn pt-0 ms-auto fw-normal"

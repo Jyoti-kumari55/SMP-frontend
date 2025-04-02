@@ -54,7 +54,7 @@ const MyProfile = () => {
           }
         );
         dispatch(fetchUserProfileSuccess(response.data));
-        console.log("Profile: ", response.data);
+        // console.log("Profile: ", response.data);
       } catch (error) {
         console.error(error);
         dispatch(

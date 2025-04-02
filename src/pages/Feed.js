@@ -28,7 +28,7 @@ const Feed = () => {
         );
         //setPost(response.data);
         dispatch(fetchPostsSuccess(response.data));
-        console.log("All Posts: ", response.data);
+        // console.log("All Posts: ", response.data);
         
       } catch (error) {
         console.error(error);

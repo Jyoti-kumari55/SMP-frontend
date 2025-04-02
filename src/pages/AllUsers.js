@@ -38,7 +38,7 @@ const AllUsers = () => {
           }
         );
         const suggestedUsersData = suggestedRes.data;
-        console.log("Suggested User: ", suggestedUsersData);
+        // console.log("Suggested User: ", suggestedUsersData);
         //setSuggestedUsers(suggestedUsersData);
         dispatch(fetchSuggestedUsersSuccess(suggestedUsersData));
         // navigate(0);
@@ -61,7 +61,7 @@ const AllUsers = () => {
           withCredentials: true,
         }
       )
-      console.log(response.data.message);
+      // console.log(response.data.message);
       dispatch(followUserSuccess({ followUserId }));
       navigate(0);
 
@@ -84,7 +84,7 @@ const AllUsers = () => {
 
         }
       );
-      console.log(response.data.message);
+      // console.log(response.data.message);
       dispatch(unfollowUserSuccess({ unfollowUserId: followUserId }));
       navigate(0);
     } catch (error) {
@@ -92,9 +92,6 @@ const AllUsers = () => {
       setError("Failed to follow the user.");
     }
   }
-
-  console.log("Friends:", friends);
-  console.log("Suggested Users:", suggestedUsers);
 
   const showMoreUserHandler = () => {
     setUsercount((prev) => prev + 5);
@@ -105,7 +102,6 @@ const AllUsers = () => {
     ...(Array.isArray(suggestedUsers.Users) ? suggestedUsers.Users : []),
   ];
 
-  console.log(getSuggestedUsers);
 
   const filteredUsers = getSuggestedUsers.filter((user) =>
     `${user.username}`.toLowerCase().includes(search.toLowerCase())

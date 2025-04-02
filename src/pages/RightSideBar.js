@@ -4,7 +4,7 @@ import SuggestedUsers from './SuggestedUsers';
 
 const RightSideBar = ({ onFollowChange }) => {
 
-  const { user, token , isLoading, error} = useSelector((state) => state.auth);
+  const { isLoading, error} = useSelector((state) => state.auth);
   
   if (isLoading) {
     return (

@@ -41,7 +41,7 @@ const PostDetails = () => {
   return (
     <>
       <Header />
-      <div className="container mt-3">
+      <div className="sidesContainer">
         <div className="row">
           <div className="col-md-3">
             <LeftSideBar />

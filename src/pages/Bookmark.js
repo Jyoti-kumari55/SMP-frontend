@@ -30,7 +30,7 @@ const Bookmark = () => {
             withCredentials: true,
           }
         );
-        console.log("hhhj", response.data);
+        // console.log("hhhj", response.data);
         setBookmarkedPosts(response.data.bookmarks);
         dispatch(fetchBookmarkedPostsSuccess(response.data));
       } catch (error) {

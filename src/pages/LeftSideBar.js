@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { logoutSuccess } from "../features/authSlice";
 
 const LeftSideBar = () => {
@@ -11,7 +11,7 @@ const LeftSideBar = () => {
 
   //const user = useSelector((state) => state.auth.user);
   const { token, user } = useSelector((state) => state.auth);
-  const { profile, isLoading, error } = useSelector((state) => state.user);
+  const { profile } = useSelector((state) => state.user);
   
   console.log("user: ", user, "prod: ", profile, "pname: ", profile?.user?.name);
 
