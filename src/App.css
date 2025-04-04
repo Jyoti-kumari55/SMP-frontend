@@ -277,3 +277,42 @@ button:hover .unfollow-text {
     font-size: 12px; 
   }
 }
+
+/* Create post page */
+/* Modal CSS */
+
+ .createPostModal {
+  display: block;  
+}
+
+.createPostDialog {
+  margin: 10% auto;
+  max-width: 500px;
+}
+
+.createPostContent {
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.createPostHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.createPostTitle {
+  margin: 0;
+}
+
+.createPostCloseBtn {
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #000;
+}
+
+.createPostBody {
+  padding: 20px;
+  background-color: #fff;
+} 

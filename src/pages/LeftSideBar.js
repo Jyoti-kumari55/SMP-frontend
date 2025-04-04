@@ -1,35 +1,45 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { logoutSuccess } from "../features/authSlice";
-
+import CreatePost from "./CreatePost";
+// import "../styles/createPost.css";
 const LeftSideBar = () => {
-
   const defaultProfileImg =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png";
 
   //const user = useSelector((state) => state.auth.user);
   const { token, user } = useSelector((state) => state.auth);
   const { profile } = useSelector((state) => state.user);
-  
-  console.log("user: ", user, "prod: ", profile, "pname: ", profile?.user?.name);
+
+  // console.log(
+  //   "user: ",
+  //   user,
+  //   "prod: ",
+  //   profile,
+  //   "pname: ",
+  //   profile?.user?.name
+  // );
 
   const [logoutBtn, setLogoutBtn] = useState(false);
+  const [showCreatePostModal, setShowCreatePostModal] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
   const logoutUser = async () => {
     try {
-      await axios.get( `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/auth/logout`, {
-        headers: {
-          Authorization: `Bearer ${token}`, 
-        },
-        withCredentials: true,
-      });
+      await axios.get(
+        `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/auth/logout`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
+      );
       dispatch(logoutSuccess());
-      navigate('/login');
+      navigate("/login");
     } catch (error) {
       console.error(error);
     }
@@ -66,11 +76,18 @@ const LeftSideBar = () => {
           </NavLink>
         </li>
       </ul>
-      <button type="submit" className="btn mt-2 px-5 createPostBtn">
+      {/* <button type="submit" className="btn mt-2 px-5 createPostBtn">
+        Create New Post
+      </button> */}
+
+      <button
+        type="button"
+        className="btn mt-2 px-5 createPostBtn"
+        onClick={() => setShowCreatePostModal(true)} 
+      >
         Create New Post
       </button>
 
-     
       <div className="d-flex gap-4 mt-5 ml-0" style={{ paddingTop: "6rem" }}>
         <img
           src={user?.profilePicture || defaultProfileImg}
@@ -81,7 +98,6 @@ const LeftSideBar = () => {
         <div className="row">
           <h6 className="mb-0">{user?.name}</h6>
           <p className="mt-0">@{user?.username}</p>
-         
         </div>
         <div className="pe-4">
           <span
@@ -106,6 +122,26 @@ const LeftSideBar = () => {
           )}
         </div>
       </div>
+
+      {showCreatePostModal && (
+        <div className="modal show d-block createPostModal" style={{ zIndex: 1050 }}>
+          <div className="modal-dialog createPostDialog">
+            <div className="modal-content createPostContent">
+              <div className="modal-header createPostHeader">
+                <h5 className="modal-title createPostTitle">Create Post</h5>
+                <button
+                  type="button"
+                  className="btn-close createPostCloseBtn"
+                  onClick={() => setShowCreatePostModal(false)} 
+                ></button>
+              </div>
+              <div className="modal-body createPostBody">
+                <CreatePost />  
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

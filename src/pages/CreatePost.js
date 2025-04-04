@@ -7,28 +7,66 @@ const CreatePost = () => {
   const defaultProfileImg =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png";
 
-
   const [desc, setDesc] = useState(" ");
   const { token, user } = useSelector((state) => state.auth);
   const [viewImage, setViewImage] = useState(null);
   const [image, setImage] = useState(null);
+  const [showEmoji, setShowEmoji] = useState(false);
 
   const dispatch = useDispatch();
+
+  const emojiList = [
+    "😀",
+    "😃",
+    "🤩",
+    "😘",
+    "😝",
+    "😆",
+    "😅",
+    "😉",
+    "😊",
+    "😇",
+    "😍",
+    "😋",
+    "🤔",
+    "👋",
+    "👍",
+    "👎",
+    "🙏",
+    "🧒",
+    "🐶",
+    "🌞",
+    "🌹", "🫠", "😡", 
+    "❤️",
+    "❣️",
+    "💞",
+    "🩵",
+  ];
 
   const imageViewHandler = (e) => {
     const file = e.target.files[0];
     if (file) {
       const filetype = file.type;
-      if (filetype === 'image/jpeg' || filetype === 'image/jpg' || filetype === 'image/png' || filetype === 'image/gif'){
+      if (
+        filetype === "image/jpeg" ||
+        filetype === "image/jpg" ||
+        filetype === "image/png" ||
+        filetype === "image/gif"
+      ) {
         setImage(file);
         setViewImage(URL.createObjectURL(file));
-      }else if (filetype === 'application/pdf') {
+      } else if (filetype === "application/pdf") {
         setImage(file);
         setViewImage(URL.createObjectURL(file));
-      }else {
-        alert('Please select valid image, GIF or PDF file.');
-      }    
+      } else {
+        alert("Please select valid image, GIF or PDF file.");
+      }
     }
+  };
+
+  const handleEmojiClick = (emojiClass) => {
+    setDesc((prevDesc) => prevDesc + emojiClass);
+    setShowEmoji(false);
   };
 
   const createPost = async () => {
@@ -62,7 +100,7 @@ const CreatePost = () => {
       }
 
       const response = await axios.post(
-       `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/posts/create`,
+        `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/posts/create`,
         {
           desc,
           userId: user?._id,
@@ -93,7 +131,7 @@ const CreatePost = () => {
 
   const isDescNotEmpty = desc.trim() !== "";
   const buttonClass = isDescNotEmpty
-    ? "btn ms-auto mx-3 px-5 rounded-2 createPostBtn text-white bg-danger" 
+    ? "btn ms-auto mx-3 px-5 rounded-2 createPostBtn text-white bg-danger"
     : "btn ms-auto mx-3 px-5 rounded-2 createPostBtn text-muted btn btn-secondary";
 
   return (
@@ -122,13 +160,13 @@ const CreatePost = () => {
             className="border-0 ms-4 form-control shadow"
             placeholder="Write something interesting..."
             style={{
-              paddingBottom: "5rem", 
-              backgroundColor: "#f0f0f0", 
-              resize: "none", 
+              paddingBottom: "5rem",
+              backgroundColor: "#f0f0f0",
+              resize: "none",
             }}
             value={desc}
             onChange={(e) => setDesc(e.target.value)}
-            rows="2" 
+            rows="2"
             required
           />
         </div>
@@ -150,7 +188,7 @@ const CreatePost = () => {
             className="bi bi-filetype-gif"
             style={{ cursor: "pointer" }}
           ></label>
-             <input
+          <input
             type="file"
             id="giftUpload"
             style={{ display: "none" }}
@@ -160,9 +198,31 @@ const CreatePost = () => {
             htmlFor="emoji"
             className="bi bi-emoji-smile"
             style={{ cursor: "pointer" }}
+            onClick={() => setShowEmoji(!showEmoji)}
           ></label>
         </div>
 
+        {showEmoji && (
+          <div
+            className="emoji-picker-box mt-3"
+            style={{
+              marginLeft: "4.4rem",
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "10px",
+              maxWidth: "400px",
+            }}
+          >
+            {emojiList.map((emoji, index) => (
+              <span
+                key={index}
+                // className={`bi ${emoji} emoji-icon`}
+                style={{ fontSize: "1.5rem", cursor: "pointer" }}
+                onClick={() => handleEmojiClick(emoji)} 
+              > {emoji} </span>
+            ))}
+          </div>
+        )}
         {viewImage && (
           <div className="mt-3">
             <img
@@ -179,11 +239,14 @@ const CreatePost = () => {
         >
           <button
             type="submit"
-            style={{ fontSize: "1.2rem", boxShadow: "5px 5px 2px 5px rgba(178, 178, 239, 0.2)"}}
+            style={{
+              fontSize: "1.2rem",
+              boxShadow: "5px 5px 2px 5px rgba(178, 178, 239, 0.2)",
+            }}
             // className={`shadow-lg ${buttonClass}`}
             className={buttonClass}
             onClick={createPost}
-            disabled={!desc.trim() && !image} 
+            disabled={!desc.trim() && !image}
           >
             Post
           </button>

@@ -124,7 +124,7 @@ const Posts = () => {
       {filteredPosts && filteredPosts.length > 0 ? (
         filteredPosts.map((tweet) => <Tweets key={tweet._id} post={tweet} />)
       ) : (
-        <p>There are no posts.</p>
+        !isloading && <p>There are no posts.</p>
       )}
     </div>
   );

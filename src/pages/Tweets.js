@@ -14,7 +14,7 @@ function Tweets({ post }) {
   const defaultProfileImg =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png";
 
-  const { token, user } = useSelector((state) => state.auth);
+  const { token, user, isLoading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // console.log("posts: ", post);

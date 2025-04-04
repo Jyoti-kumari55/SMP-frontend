@@ -1,0 +1,38 @@
+/* Create post page */
+/* Modal CSS */
+
+.modal.show {
+  display: block;  
+}
+
+.modal-dialog {
+  margin: 10% auto;
+  max-width: 500px;
+}
+
+.modal-content {
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  margin: 0;
+}
+
+.btn-close {
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #000;
+}
+
+.modal-body {
+  padding: 20px;
+  background-color: #fff;
+}

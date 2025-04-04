@@ -20,6 +20,7 @@ import FollowersUserList from "./pages/FollowersUserList";
 import FollowingsUserList from "./pages/FollowingsUserList";
 import UserList from "./pages/UserList";
 import UserEditForm from "./pages/UserEditForm";
+import CreatePost from "./pages/CreatePost";
 
 //const selectIsAuthenticated = (state) => state.auth.token !== null && state.auth.user !== null
 
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
   {
     path: "/postDetails/:postId",
     element: <PostDetails />,
+  },
+  {
+    path: "/createPost",
+    element: <CreatePost/>
   },
 
   {
