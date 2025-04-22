@@ -26,13 +26,9 @@ const MyProfile = () => {
   const { userId } = useParams();
   const { profile, isLoading, error } = useSelector((state) => state.user);
   const { token, user } = useSelector((state) => state.auth);
-  //console.log("User:", user);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const currentUserId = user?._id;
-  
-  // const currentUserId = user;
-  // console.log("Current User----: ", currentUserId);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -40,12 +36,12 @@ const MyProfile = () => {
 
       const idToFetch = userId || currentUserId;
       if (!idToFetch) {
-        navigate("/login"); // Redirect if no userId is available
+        navigate("/login");
         return;
       }
       try {
         const response = await axios.get(
-           `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/users/profile/${idToFetch}`,
+          `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/users/profile/${idToFetch}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -54,7 +50,6 @@ const MyProfile = () => {
           }
         );
         dispatch(fetchUserProfileSuccess(response.data));
-        // console.log("Profile: ", response.data);
       } catch (error) {
         console.error(error);
         dispatch(
@@ -67,18 +62,13 @@ const MyProfile = () => {
     fetchProfile();
   }, [dispatch, token, currentUserId, navigate, userId]);
 
-//   const isFollowing = currentUserId && 
-//   Array.isArray(profile?.user?.followings) && profile?.user?.followings.includes(currentUserId);
-// const isFollowedByUser = currentUserId &&
-//  Array.isArray(profile?.user?.followers) && profile?.user?.followers.includes(currentUserId);
-
   const isFollowing =
     currentUserId && profile?.user?.followings.includes(currentUserId);
 
   const isCurrentUserProfile = currentUserId === profile?.user?._id;
 
   const isFollowedByUser =
-  currentUserId && profile?.user?.followers.includes(currentUserId);
+    currentUserId && profile?.user?.followers.includes(currentUserId);
   const filterPosts = (posts) => {
     return posts?.filter((post) => !post.postId);
   };
@@ -92,13 +82,10 @@ const MyProfile = () => {
       if (!isFollowing && !isFollowedByUser) {
         await toggleFollowHandler(profile?.user?._id, user, token, dispatch);
       }
-      // else if (isFollowing) {
-      //   await toggleFollowHandler(profile?.user?._id, user, token, dispatch);
-      // }
+      
       else if (isFollowing && !isFollowedByUser) {
         await toggleFollowHandler(profile?.user?._id, user, token, dispatch);
-      }
-      else if (!isFollowing && isFollowedByUser) {
+      } else if (!isFollowing && isFollowedByUser) {
         await toggleFollowHandler(profile?.user?._id, user, token, dispatch);
       }
 
@@ -125,7 +112,7 @@ const MyProfile = () => {
             <LeftSideBar />
           </div>
           <div className="col-md-6 mt-2">
-            {isLoading && <p>Loading...</p>}
+            {isLoading && <p className="fs-5">Loading profile...</p>}
             {error && <p>An error occured while fetching data.</p>}
             <NavLink
               to="/home"
@@ -170,7 +157,7 @@ const MyProfile = () => {
                 <button
                   type="button"
                   className={`bg-white rounded-2 mt-2 px-3 border border-secondary-subtle ${
-                    isFollowing || isFollowedByUser ?  "text-primary" : ""
+                    isFollowing || isFollowedByUser ? "text-primary" : ""
                   }`}
                   onClick={handleFollowClick}
                 >
@@ -220,7 +207,9 @@ const MyProfile = () => {
             </div>
 
             <h4>Your Posts</h4>
-            {profile?.posts?.length > 0 ? (
+            {isLoading ? (
+              <div className=" mt-3 fs-5">Loading your posts... ↻</div>
+            ) : filterPosts(profile?.posts)?.length > 0 ? (
               <div className="">
                 <div className="d-flex row ">
                   {filterPosts(profile?.posts).map((userPost) => (
@@ -229,7 +218,7 @@ const MyProfile = () => {
                 </div>
               </div>
             ) : (
-              <p> No post by user. </p>
+              <h4 className="text-center mt-5">No post by user! 🫠 </h4>
             )}
           </div>
           <div className="col-md-3 d-none d-xl-block">
@@ -271,11 +260,3 @@ const MyProfile = () => {
 };
 
 export default MyProfile;
-
-
-
-
-
-
-
-

@@ -1,27 +1,15 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { logoutSuccess } from "../features/authSlice";
 import CreatePost from "./CreatePost";
-// import "../styles/createPost.css";
 const LeftSideBar = () => {
   const defaultProfileImg =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png";
 
-  //const user = useSelector((state) => state.auth.user);
   const { token, user } = useSelector((state) => state.auth);
   const { profile } = useSelector((state) => state.user);
-
-  // console.log(
-  //   "user: ",
-  //   user,
-  //   "prod: ",
-  //   profile,
-  //   "pname: ",
-  //   profile?.user?.name
-  // );
-
   const [logoutBtn, setLogoutBtn] = useState(false);
   const [showCreatePostModal, setShowCreatePostModal] = useState(false);
   const dispatch = useDispatch();
@@ -92,10 +80,10 @@ const LeftSideBar = () => {
         <img
           src={user?.profilePicture || defaultProfileImg}
           alt="user"
-          className="rounded-circle"
+          className="img-fluid rounded-circle "
           style={{ width: "15%", height: "15%" }}
         />
-        <div className="row">
+        <div className="row mt-2">
           <h6 className="mb-0">{user?.name}</h6>
           <p className="mt-0">@{user?.username}</p>
         </div>

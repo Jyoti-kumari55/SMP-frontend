@@ -74,7 +74,7 @@ const PostDetails = () => {
                 )}
               </div>
             ) : (
-              <p>Loading...</p>
+              <p className="fs-5">Loading post comments... ↻</p>
             )}
           </div>
           <div className="col-md-3">

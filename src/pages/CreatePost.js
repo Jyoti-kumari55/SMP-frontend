@@ -116,7 +116,6 @@ const CreatePost = () => {
         }
       );
       response.data.post.userId = user;
-      // console.log(response.data);
 
       dispatch(createPostSuccess(response.data));
       dispatch(createPostStart());

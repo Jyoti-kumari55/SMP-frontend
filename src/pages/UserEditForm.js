@@ -20,7 +20,6 @@ const UserEditForm = ({ userDetail }) => {
   const uploadImage = async (file) => {
     const formData = new FormData();
     formData.append("image", file);
-    console.log("Form-data: ", formData);
 
     try {
       const response = await axios.post(
@@ -34,7 +33,6 @@ const UserEditForm = ({ userDetail }) => {
           withCredentials: true,
         }
       );
-      // console.log("----------", response.data);
       return response.data.imageUrl;
     } catch (error) {
       console.error("Error uploading image: ", error);
@@ -80,7 +78,6 @@ const UserEditForm = ({ userDetail }) => {
       currentPassword,
       newPassword,
     };
-    // console.log("upppp: ", updatedUser);
 
     // dispatch(updateUserProfileSuccess(updatedUser));
     updateUserHandler(userDetail?._id, updatedUser, token, dispatch);

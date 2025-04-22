@@ -23,10 +23,8 @@ export const toggleFollowHandler = async (
         withCredentials: true,
       }
     );
-    console.log("follow user: ", response.data); // log success response
     window.location.reload();
 
-    // Dispatch the success action to update the local state
     dispatch(toggleFollowSuccess(followUserId));
   } catch (error) {
     console.log(error.message);
@@ -47,7 +45,6 @@ export const updateUserHandler = async (userId, userData, token, dispatch) => {
       }
     );
 
-    console.log("User Updated Successfully", response.data);
     dispatch(updateUserProfileSuccess(response.data.user));
 
     window.location.reload();

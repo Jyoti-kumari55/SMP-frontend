@@ -4,9 +4,7 @@ import LeftSideBar from "./LeftSideBar";
 import RightSideBar from "./RightSideBar";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import {
-  fetchBookmarkedPostsSuccess,
-} from "../features/userSlice";
+import { fetchBookmarkedPostsSuccess } from "../features/userSlice";
 import { NavLink, useNavigate } from "react-router-dom";
 import Tweets from "./Tweets";
 
@@ -17,12 +15,19 @@ const Bookmark = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [bookmarkedPosts, setBookmarkedPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
     const fetchAllBookmarkedPost = async () => {
       try {
         const response = await axios.get(
-           `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/users/bookmark`,
+          `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/users/bookmark`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -30,17 +35,18 @@ const Bookmark = () => {
             withCredentials: true,
           }
         );
-        // console.log("hhhj", response.data);
         setBookmarkedPosts(response.data.bookmarks);
         dispatch(fetchBookmarkedPostsSuccess(response.data));
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
     if (token) {
       fetchAllBookmarkedPost();
     }
-  }, [dispatch, token, user]);
+  }, [dispatch, navigate, token, user]);
 
   return (
     <>
@@ -63,14 +69,18 @@ const Bookmark = () => {
             </div>
 
             <div className="d-flex flex-column ">
-              {bookmarkedPosts.length > 0 ? (
+              {loading ? (
+                <div className="mt-5 fs-5">Loading bookmarked posts... ↻</div>
+              ) : bookmarkedPosts.length > 0 ? (
                 <div className="d-flex row mb-4">
-                  {bookmarkedPosts?.map((userPost) => (
+                  {bookmarkedPosts.map((userPost) => (
                     <Tweets key={userPost.post._id} post={userPost.post} />
                   ))}
                 </div>
               ) : (
-                <h2>No Bookmarked yet!! </h2>
+                <h4 className="text-center mt-5">
+                  No posts bookmarked yet! 🫠{" "}
+                </h4>
               )}
             </div>
           </div>

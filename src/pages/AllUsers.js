@@ -26,10 +26,9 @@ const AllUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        
         // Fetch suggested users
         const suggestedRes = await axios.get(
-           `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/users/suggestedUsers`,
+          `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/users/suggestedUsers`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -38,10 +37,7 @@ const AllUsers = () => {
           }
         );
         const suggestedUsersData = suggestedRes.data;
-        // console.log("Suggested User: ", suggestedUsersData);
-        //setSuggestedUsers(suggestedUsersData);
         dispatch(fetchSuggestedUsersSuccess(suggestedUsersData));
-        // navigate(0);
       } catch (error) {
         console.log(error.message);
       }
@@ -52,46 +48,42 @@ const AllUsers = () => {
   const followUserHandler = async (followUserId) => {
     try {
       const response = await axios.post(
-         `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/users/follow/${followUserId}`,
-        { userId: user?._id},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          withCredentials: true,
-        }
-      )
-      // console.log(response.data.message);
-      dispatch(followUserSuccess({ followUserId }));
-      navigate(0);
-
-    } catch (error) {
-      console.log(error.message);
-      setError("Failed to unfollow the user.");
-    }
-  }
-
-  const unfollowUserHandler = async (followUserId) => {
-    try {
-      const response = await axios.post(
-     `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/users/unfollow/${followUserId}`,
+        `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/users/follow/${followUserId}`,
         { userId: user?._id },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
-
         }
       );
-      // console.log(response.data.message);
+      dispatch(followUserSuccess({ followUserId }));
+      navigate(0);
+    } catch (error) {
+      console.log(error.message);
+      setError("Failed to unfollow the user.");
+    }
+  };
+
+  const unfollowUserHandler = async (followUserId) => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/users/unfollow/${followUserId}`,
+        { userId: user?._id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
+      );
       dispatch(unfollowUserSuccess({ unfollowUserId: followUserId }));
       navigate(0);
     } catch (error) {
       console.log(error.message);
       setError("Failed to follow the user.");
     }
-  }
+  };
 
   const showMoreUserHandler = () => {
     setUsercount((prev) => prev + 5);
@@ -102,7 +94,6 @@ const AllUsers = () => {
     ...(Array.isArray(suggestedUsers.Users) ? suggestedUsers.Users : []),
   ];
 
-
   const filteredUsers = getSuggestedUsers.filter((user) =>
     `${user.username}`.toLowerCase().includes(search.toLowerCase())
   );
@@ -110,7 +101,8 @@ const AllUsers = () => {
   const filteredSuggestedUsers = filteredUsers.filter((people) => {
     if (!user?.followings.includes(people?._id) && people?._id !== user?._id) {
       const isFollower = user?.followers.includes(people?._id);
-      const isNewUser = people?.followers.length === 0; // New user with no followers
+      // New user with no followers
+      const isNewUser = people?.followers.length === 0;
 
       return (
         (isFollower && !user?.followings.includes(people?._id)) || isNewUser
@@ -142,7 +134,6 @@ const AllUsers = () => {
           />
         </div>
       </form>
-  
 
       <div className="d-flex align-items-center justify-content-between mt-4 ">
         <span className="fw-bold fs-100">
@@ -181,9 +172,11 @@ const AllUsers = () => {
           </Link>
 
           <button
-            onClick={() => user?.followings?.includes(people?._id) 
-                ? unfollowUserHandler(people?._id) 
-                : followUserHandler(people?._id)}
+            onClick={() =>
+              user?.followings?.includes(people?._id)
+                ? unfollowUserHandler(people?._id)
+                : followUserHandler(people?._id)
+            }
             className="btn btn-outline-danger"
           >
             {user?.followings.includes(people?._id)

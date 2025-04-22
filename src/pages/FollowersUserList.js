@@ -3,15 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserListSuccess } from "../features/userSlice";
 import { Link, useParams } from "react-router-dom";
-import { toggleFollowHandler } from "../actions/userActions"; 
+import { toggleFollowHandler } from "../actions/userActions";
 
 const FollowersUserList = () => {
   const defaultProfileImg =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png";
 
-  const { followers, isLoading, error } = useSelector(
-    (state) => state.user
-  );
+  const { followers, isLoading, error } = useSelector((state) => state.user);
   const { user, token } = useSelector((state) => state.auth);
   const [hoveredUserId, setHoveredUserId] = useState(null);
   const { userId } = useParams();
@@ -25,7 +23,7 @@ const FollowersUserList = () => {
 
       try {
         const response = await axios.get(
-           `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/users/userList/${idToFetch}`,
+          `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/users/userList/${idToFetch}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -33,7 +31,6 @@ const FollowersUserList = () => {
             withCredentials: true,
           }
         );
-        // console.log("UserList", response.data);
         dispatch(fetchUserListSuccess(response.data));
       } catch (error) {
         console.error(error);
@@ -49,7 +46,8 @@ const FollowersUserList = () => {
 
   const isMutualFollow = (people) => {
     return (
-      people?.followers?.includes(user?._id) && user?.followers?.includes(people?._id)
+      people?.followers?.includes(user?._id) &&
+      user?.followers?.includes(people?._id)
     );
   };
 
@@ -63,7 +61,10 @@ const FollowersUserList = () => {
       {followers?.length > 0 &&
         followers?.map((people) => (
           <div key={people?._id} className="d-flex justify-content-between">
-            <Link to={`/profile/${people?._id}`} className="d-flex gap-2 text-decoration-none">
+            <Link
+              to={`/profile/${people?._id}`}
+              className="d-flex gap-2 text-decoration-none"
+            >
               <img
                 src={people?.profilePicture || defaultProfileImg}
                 alt="userImg"

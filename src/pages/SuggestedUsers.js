@@ -28,7 +28,6 @@ const SuggestedUsers = () => {
           }
         );
         const suggestedUsersData = suggestedRes.data;
-        // console.log("sssss: ", suggestedUsersData);
         dispatch(fetchSuggestedUsersSuccess(suggestedUsersData));
       } catch (error) {
         console.log(error.message);

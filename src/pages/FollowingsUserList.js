@@ -25,7 +25,7 @@ const FollowingsUserList = () => {
 
       try {
         const response = await axios.get(
-           `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/users/userList/${idToFetch}`,
+          `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/users/userList/${idToFetch}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -33,14 +33,8 @@ const FollowingsUserList = () => {
             withCredentials: true,
           }
         );
-        // console.log("UserList", response.data);
-        // const validFollowings = response.data.followings.filter((person) => person !== null || person._id !== undefined);
-        // const validFollowers = response.data.followers.filter((person) => person !== null || person._id !== undefined);
-
 
         dispatch(fetchUserListSuccess(response.data));
-        // dispatch(fetchUserListSuccess({...response.data, followers: validFollowers, followings: validFollowings}));
-
       } catch (error) {
         console.error(error);
       }
@@ -93,8 +87,7 @@ const FollowingsUserList = () => {
                 onMouseLeave={() => setHoveredUserId(null)}
                 // style={{ position: "relative" }}
               >
-              
-                  {followingUsers?.some(
+                {followingUsers?.some(
                   (following) => following?._id === people?._id
                 )
                   ? hoveredUserId === people?._id

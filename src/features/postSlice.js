@@ -17,7 +17,6 @@ const postSlice = createSlice({
     fetchPostsSuccess: (state, action) => {
       state.isLoading = false;
       state.posts = action.payload;
-      // console.log("alll posts: ", action.payload)
     },
     fetchPostsFailure: (state, action) => {
       state.isLoading = false;
@@ -30,7 +29,6 @@ const postSlice = createSlice({
     },
     likePostSuccess: (state, action) => {
       state.isLoading = false;
-      // console.log("likeac: ", action.payload);
       state.posts = state.posts.map((post) =>
         post._id === action.payload._id ? action.payload : post
       );
@@ -70,7 +68,6 @@ const postSlice = createSlice({
           ?  {...post, comments: [...post.comments, action.payload.comments]}
           : post
        );
-       console.log("Cmt: ", updatedPost);
       state.posts = updatedPost;
     },
 
@@ -94,7 +91,7 @@ const postSlice = createSlice({
     },
     deletePostSuccess: (state, action) => {
       state.isLoading = false;
-      state.posts = state.posts.filter((post) => post._id !== action.payload); // Remove deleted post
+      state.posts = state.posts.filter((post) => post._id !== action.payload); 
     },
     deletePostFailure: (state, action) => {
       state.isLoading = false;

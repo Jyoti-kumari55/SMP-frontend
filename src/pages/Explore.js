@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import LeftSideBar from "./LeftSideBar";
 import RightSideBar from "./RightSideBar";
 import Tweets from "./Tweets";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Explore = () => {
   const { user, token } = useSelector((state) => state.auth);
   const { posts, error, isloading } = useSelector((state) => state.post);
   const [view, setView] = useState("forYou");
-  // console.log("ppppp: ", posts);
+const navigate = useNavigate();
 
+  useEffect(() => {
+      if(!token) {
+        navigate("/login")
+      }
+    }, [token, navigate]);
+  
   const clickTabHandler = (tab) => {
     setView(tab);
   };

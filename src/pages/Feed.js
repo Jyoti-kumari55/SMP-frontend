@@ -2,14 +2,11 @@ import React, { useEffect, useState } from "react";
 import Tweets from "./Tweets";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { fetchPostsSuccess } from "../features/postSlice";
 
 const Feed = () => {
-     // const [post, setPost] = useState([]);
   const { token } = useSelector((state) => state.auth);
-  const { posts, error, isloading } = useSelector((state) => state.post)
-  const navigate = useNavigate();
+  const { posts, isloading } = useSelector((state) => state.post)
   const dispatch = useDispatch();
   const [filterPostType, setFilterPostType] = useState("Date");
   const [showSortType, setShowSortType] = useState(false);
@@ -26,9 +23,7 @@ const Feed = () => {
             withCredentials: true,
           }
         );
-        //setPost(response.data);
         dispatch(fetchPostsSuccess(response.data));
-        // console.log("All Posts: ", response.data);
         
       } catch (error) {
         console.error(error);

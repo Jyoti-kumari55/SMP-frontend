@@ -2,25 +2,27 @@ import React, { useEffect, useState } from "react";
 import Tweets from "./Tweets";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { fetchPostsStart, fetchPostsSuccess } from "../features/postSlice";
+import { fetchPostsSuccess } from "../features/postSlice";
 import CreatePost from "./CreatePost";
 
 const Posts = () => {
   const { user, token } = useSelector((state) => state.auth);
-  const { posts, error, isloading } = useSelector((state) => state.post);
+  const { posts, error } = useSelector((state) => state.post);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const [filterPostType, setFilterPostType] = useState("Date");
   const [showSortType, setShowSortType] = useState(false);
   const [view, setView] = useState("forYou");
-  const following = user?.followings || [];
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
+        setLoading(true);
+
         const apiUrl =
           view === "forYou"
-            ?  `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/posts/allPosts`
-            :  `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/posts/followingPosts`;
+            ? `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/posts/allPosts`
+            : `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/posts/followingPosts`;
 
         const response = await axios.get(apiUrl, {
           headers: {
@@ -30,8 +32,10 @@ const Posts = () => {
           withCredentials: true,
         });
         dispatch(fetchPostsSuccess(response.data));
+        setLoading(false);
       } catch (error) {
         console.error(error);
+        setLoading(false);
       }
     };
     fetchPosts();
@@ -46,7 +50,7 @@ const Posts = () => {
       if (filterPostType === "Date") {
         return [...posts].sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-        )
+        );
       } else if (filterPostType === "Trending") {
         return [...posts].sort((a, b) => b.likes.length - a.likes.length);
       }
@@ -58,7 +62,7 @@ const Posts = () => {
 
   return (
     <div>
-      <div className="m-3 d-flex justify-evenly border-bottom">
+      <div className="m-3 d-flex border-bottom">
         <div
           className="w-100 text-center"
           onClick={() => clickTabHandler("forYou")}
@@ -87,8 +91,9 @@ const Posts = () => {
       <CreatePost />
       <div className="d-flex mt-4">
         <h2 className="fw-bold">Latest Posts</h2>
-        { isloading && <div> Loading posts... </div>}
-        { error && !posts.length && <div>Error occured while fetching the posts. </div>}
+        {error && !posts.length && (
+          <div>Error occured while fetching the posts. </div>
+        )}
         {view === "forYou" && (
           <span
             className="btn pt-0 ms-auto fw-normal"
@@ -121,10 +126,13 @@ const Posts = () => {
             </div>
           )}
       </div>
-      {filteredPosts && filteredPosts.length > 0 ? (
+
+      {loading ? (
+        <p className="fs-5">Loading posts... ↻</p>
+      ) : filteredPosts && filteredPosts.length > 0 ? (
         filteredPosts.map((tweet) => <Tweets key={tweet._id} post={tweet} />)
       ) : (
-        !isloading && <p>There are no posts.</p>
+        <h4 className="text-center mt-3">There are no posts. 🫠</h4>
       )}
     </div>
   );

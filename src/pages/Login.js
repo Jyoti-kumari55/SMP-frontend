@@ -43,8 +43,7 @@ const Login = () => {
           // withCredentials: true,
         }
       );
-      // console.log(response);
-      // console.log(document.cookie);
+      
 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.details));
@@ -56,7 +55,6 @@ const Login = () => {
           token: response.data.token,
         })
       );
-      // console.log("details:", response.data.details);
 
       dispatch(fetchUserProfileSuccess(response.data.details));
       setSuccess(response.data.message);

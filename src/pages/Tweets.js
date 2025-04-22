@@ -17,7 +17,6 @@ function Tweets({ post }) {
   const { token, user, isLoading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // console.log("posts: ", post);
 
   const [likesCount, setLikesCount] = useState(post?.likes?.length || 0);
   const [isLiked, setIsLiked] = useState(
@@ -59,9 +58,7 @@ function Tweets({ post }) {
           withCredentials: true,
         }
       );
-      // setAlert("Post deleted successfully.")
       //dispatch(deletePostSuccess(post));
-      // window.location.reload();
       navigate(0);
 
       return response.data;
@@ -91,7 +88,6 @@ function Tweets({ post }) {
           withCredentials: true,
         }
       );
-      // console.log(", hhh", response.data);
       setEditedContent(editedContent);
       setIsEdit(false);
       dispatch(updatePostSuccess(response.data));
@@ -121,10 +117,9 @@ function Tweets({ post }) {
           withCredentials: true,
         }
       );
-      // console.log("3334445", response.data.message);
-      dispatch(likePostSuccess(post));
-      navigate(0);
+      dispatch(likePostSuccess(response.data));
 
+      // navigate(0);
     } catch (error) {
       console.log(error);
     }
@@ -146,10 +141,10 @@ function Tweets({ post }) {
         }
       );
 
-      // console.log("yuyuyu: ", response);
-      setIsBookmark((prev) => !prev);
       dispatch(bookmarkPostSuccess(post));
-      navigate(0);
+      setIsBookmark((prev) => !prev);
+
+      // navigate(0);
 
       setError("");
     } catch (error) {
@@ -163,7 +158,6 @@ function Tweets({ post }) {
   const commentPostHandler = async () => {
     try {
       const response = await axios.post(
-        //`http://localhost:8080/api/comments/create/${post?._id}`,
         `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/posts/create`,
 
         {
@@ -183,7 +177,6 @@ function Tweets({ post }) {
       setCommentText(" ");
       setCommentCount((prevCount) => prevCount + 1);
       setShowCommentInput((prev) => !prev);
-      // console.log("Comment", response.data);
       navigate(0);
       dispatch(createCommentSuccess(response.date));
     } catch (error) {
