@@ -46,8 +46,8 @@ const Explore = () => {
     setView(tab);
   };
 
-  const newsKeywords = ["news", "breaking", "headline", "death", "alert"];
-  const entertainmentKeywords = ["entertainment", "movie", "show"];
+  const newsKeywords = ["news", "breaking", "headline", "death", "alert", "report", "media"];
+  const entertainmentKeywords = ["entertainment", "movie", "show", "fun", "series", ];
   const sportsKeywords = [
     "sports",
     "football",
@@ -55,6 +55,7 @@ const Explore = () => {
     "game",
     "cricket",
     "players",
+    "exercise"
   ];
   return (
     <>
@@ -65,8 +66,6 @@ const Explore = () => {
             <LeftSideBar />
           </div>
           <div className="col-md-6">
-            {isloading && <div>Loading posts... </div>}
-            {error && <div>Error occured while fetching posts. </div>}
             <div className="m-3 d-flex justify-evenly border-bottom explore-tabs">
               <div
                 className="w-100 text-center"
@@ -130,13 +129,15 @@ const Explore = () => {
               </div>
             </div>
             <div>
+            {isLoading && <div className="mt-3 fs-5">Loading posts...  ↻</div>}
+            {error && <div>Error occured while fetching posts. </div>}
               {view === "forYou" &&
                 allPosts?.map((tweet) => <Tweets key={tweet?._id} post={tweet} />)}
 
               {view === "trending" &&
                 allPosts?.map((tweet) => (
                   <div>
-                    {tweet?.likes?.length > 3 && (
+                    {tweet?.likes?.length > 4 && (
                       <Tweets key={tweet?._id} post={tweet} />
                     )}
                   </div>
@@ -154,7 +155,7 @@ const Explore = () => {
                 allPosts
                   ?.filter((post) =>
                     entertainmentKeywords.some((keyword) =>
-                      post?.desc?.toLowerCase().includes("entertainment")
+                      post?.desc?.toLowerCase().includes(keyword)
                     )
                   )
                   .map((tweet) => <Tweets key={tweet?._id} post={tweet} />)}
