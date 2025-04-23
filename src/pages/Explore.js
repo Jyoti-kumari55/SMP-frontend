@@ -5,19 +5,43 @@ import RightSideBar from "./RightSideBar";
 import Tweets from "./Tweets";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Explore = () => {
   const { user, token } = useSelector((state) => state.auth);
-  const { posts, error, isloading } = useSelector((state) => state.post);
+  const { posts,  isloading } = useSelector((state) => state.post);
+  const [allPosts, setAllPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [view, setView] = useState("forYou");
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
-      if(!token) {
-        navigate("/login")
+    if (!token) {
+      navigate("/login");
+    }
+    const fetchUserPosts = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8080/api/posts/allUsersPosts",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setAllPosts(response.data.posts);
+        setIsLoading(false);
+      } catch (error) {
+      console.error(error);
+      setError(error.message || "Error loading posts");
+      setIsLoading(false);
       }
-    }, [token, navigate]);
-  
+    };
+    fetchUserPosts();
+   
+  }, [token, navigate]);
+
   const clickTabHandler = (tab) => {
     setView(tab);
   };
@@ -30,7 +54,7 @@ const navigate = useNavigate();
     "basketball",
     "game",
     "cricket",
-    "players"
+    "players",
   ];
   return (
     <>
@@ -107,10 +131,10 @@ const navigate = useNavigate();
             </div>
             <div>
               {view === "forYou" &&
-                posts?.map((tweet) => <Tweets key={tweet?._id} post={tweet} />)}
+                allPosts?.map((tweet) => <Tweets key={tweet?._id} post={tweet} />)}
 
               {view === "trending" &&
-                posts?.map((tweet) => (
+                allPosts?.map((tweet) => (
                   <div>
                     {tweet?.likes?.length > 3 && (
                       <Tweets key={tweet?._id} post={tweet} />
@@ -118,7 +142,7 @@ const navigate = useNavigate();
                   </div>
                 ))}
               {view === "news" &&
-                posts
+                allPosts
                   ?.filter((post) =>
                     newsKeywords.some((keyword) =>
                       post?.desc?.toLowerCase().includes(keyword)
@@ -127,7 +151,7 @@ const navigate = useNavigate();
                   .map((tweet) => <Tweets key={tweet?._id} post={tweet} />)}
 
               {view === "entertainment" &&
-                posts
+                allPosts
                   ?.filter((post) =>
                     entertainmentKeywords.some((keyword) =>
                       post?.desc?.toLowerCase().includes("entertainment")
@@ -136,7 +160,7 @@ const navigate = useNavigate();
                   .map((tweet) => <Tweets key={tweet?._id} post={tweet} />)}
 
               {view === "sports" &&
-                posts
+                allPosts
                   ?.filter((post) =>
                     sportsKeywords.some((keyword) =>
                       post?.desc?.toLowerCase().includes(keyword)
