@@ -1,6 +1,6 @@
 # SMP-frontend
 A Social Media full-stack web application using React.js for frontend, Node.js and Express.js for backend, Mongodb as database and Redux for state management.
-## Features Implemented
+## SMP Checklist
 __1. User Feed__ 📰
 - Display a list of all posts of user and their followers users posts.
 - Sorting the post
