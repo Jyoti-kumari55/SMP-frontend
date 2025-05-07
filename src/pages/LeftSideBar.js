@@ -81,7 +81,13 @@ const LeftSideBar = () => {
           src={user?.profilePicture || defaultProfileImg}
           alt="user"
           className="img-fluid rounded-circle "
-          style={{ width: "15%", height: "15%" }}
+          // style={{ width: "15%", height: "15%" }}
+          style={{
+    width: "50px",
+    height: "50px",
+    objectFit: "cover",
+    borderRadius: "50%",
+  }}
         />
         <div className="row mt-2">
           <h6 className="mb-0">{user?.name}</h6>
