@@ -1,11 +1,11 @@
 # SMP-frontend
-A Social Media full stack web application using React.js for frontend , Node.js and Express.js for backend, MongoDb as database and Redux for state management.
+A Social Media full-stack web application using React.js for frontend, Node.js and Express.js for backend, Mongodb as database and Redux for state management.
 ## Features Implemented
 __1. User Feed__ 📰
-- Display a list of all posts of user and its followers.
+- Display a list of all posts of user and their followers users posts.
 - Sorting the post
    - Filter by Trending post (Most Liked)
-   - Filter post by Date (Most Latest post)
+   - Filter post by Date (Most recent post)
   
 __2. Create a Post__ ✍️
 - User can create a new post with "Create new post" button.
@@ -16,12 +16,12 @@ __3. Like a Post__ ❤️
 - Like count updated in real time.
 
 __4. Edit ✏️  & Delete Post__ 🗑️ 
-- Post owner can edit and delete their posts by clicking on the edit and delete icon.
-- Editing post, click on the edit icon, it opens a text box.
+- Post owner can edit and delete their posts by clicking on the edit and delete buttons.
+- Editing post, click on the edit button, which opens a text box.
 
 __5. User Profile__  👤 
-- Clicking on profile button, user can see their details.
-- Click on edit button, which opens a form for editable details.
+- Clicking on the profile button, user can see their details.
+- Click on the edit button, which opens a form for editable details.
 - User can edit their details (bio, username, password, profile image and cover image).
 
 __6. Follow/Unfollow__ 🔄
