@@ -185,6 +185,7 @@ const CreatePost = () => {
           <label
             htmlFor="giftUpload"
             className="bi bi-filetype-gif"
+            title="Max GIF size: 5MB"
             style={{ cursor: "pointer" }}
           ></label>
           <input
