@@ -23,7 +23,7 @@ const Explore = () => {
     const fetchUserPosts = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/posts/allUsersPosts",
+          `${process.env.REACT_APP_SOCIAL_BACKEND_API}/api/posts/allUsersPosts`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
